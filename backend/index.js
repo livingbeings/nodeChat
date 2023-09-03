@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 
 const app = express();
 app.use(express.json());
@@ -11,11 +12,11 @@ app.post("/authenticate", async (req, res) => {
     const r = await axios.put(
       'https://api.chatengine.io/users/',
       { username: username, secret: username, first_name: username },
-      { headers: { "private-key": "0a27c968-263e-4de6-bb5f-2d6cbc3b2c90" } }
+      { headers: { "Private-Key": "0a27c968-263e-4de6-bb5f-2d6cbc3b2c90" } }
     )
     return res.status(r.status).json(r.data);
   } catch (e) {
-    return res.status(e.status).json(e.data);
+    return res.status(e.response.status).json(e.response.data);
   }
 });
 
